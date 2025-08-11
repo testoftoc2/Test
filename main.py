@@ -34,7 +34,10 @@ def cached_endpoint(ttl=300):
 def get_account_info():
     region = request.args.get('region')
     uid = request.args.get('uid')
-    
+    key = request.args.get("key", "")
+
+    if key != "TOC":
+        return jsonify({"error": "INVALID API KEY"}), 403
     if not uid:
         response = {
             "error": "Invalid request",
